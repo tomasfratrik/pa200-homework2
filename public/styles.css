@@ -1,6 +1,7 @@
 :root {
     color-scheme: light;
-    --bg: #f4efe6;
+    /* --bg: #f4efe6; */
+     --bg: blue;
     --bg-strong: #fffaf3;
     --panel: rgba(255, 250, 243, 0.88);
     --panel-border: rgba(60, 44, 31, 0.12);
