@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'app_name' => 'Azure PaaS Todo App',
+    'asset_base_url' => '',
+    'db' => [
+        'host' => '127.0.0.1',
+        'port' => 3306,
+        'database' => 'todo_app',
+        'username' => 'todo_user',
+        'password' => 'change-this-password',
+        'charset' => 'utf8mb4',
+    ],
+];
