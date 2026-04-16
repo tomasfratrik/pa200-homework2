@@ -21,14 +21,13 @@ The app uses:
 
 - `index.php` root entrypoint for Azure App Service
 - `startup.sh` and `nginx-default.conf` Azure App Service nginx/PHP startup configuration
-- `public/` application page and static assets
+- `public/index.php` application page
+- `public/styles.css` source CSS uploaded to Azure Blob Storage by the deployment pipeline
 - `src/` PHP bootstrap and database wiring
 - `sql/schema.sql` database schema
 - `.github/workflows/deploy.yml` CI/CD deployment workflow template
-- `docs/AZURE_DEPLOYMENT.md` HW2 deployment checklist
-- `docs/STEP1_STORAGE.md` PaaS database setup
-- `docs/STEP2_WEB_APP.md` PaaS web app setup
-- `docs/STEP3_STATIC_ASSETS.md` Blob Storage static asset setup
+
+Local deployment notes, screenshots, generated ZIP packages, and other submission artifacts are intentionally not part of the public repository.
 
 ## App Service configuration
 
@@ -50,8 +49,8 @@ For local testing you can also copy `config.php.example` to `config.php`.
 
 ## Database schema
 
-Import `sql/schema.sql` into the Azure Database for MySQL database.
+Import `sql/init_azure_mysql.sql` into the Azure Database for MySQL database.
 
 ## Deployment
 
-Use `docs/AZURE_DEPLOYMENT.md` for the Azure portal checklist and screenshot list.
+The GitHub Actions workflow deploys the PHP application to Azure App Service and uploads `public/styles.css` to Azure Blob Storage.
