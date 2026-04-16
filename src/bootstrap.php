@@ -47,6 +47,7 @@ function appConfig(): array
     $config['db']['username'] = envString('DB_USER') ?? $config['db']['username'];
     $config['db']['password'] = envString('DB_PASSWORD') ?? $config['db']['password'];
     $config['db']['charset'] = envString('DB_CHARSET') ?? $config['db']['charset'];
+    $config['db']['ssl'] = envBool('DB_SSL') ?? $config['db']['ssl'];
 
     if (!is_array($config) || !isset($config['db']) || !is_array($config['db'])) {
         throw new RuntimeException('Invalid application configuration.');
@@ -64,6 +65,17 @@ function envString(string $key): ?string
     }
 
     return $value;
+}
+
+function envBool(string $key): ?bool
+{
+    $value = envString($key);
+
+    if ($value === null) {
+        return null;
+    }
+
+    return filter_var($value, FILTER_VALIDATE_BOOL, FILTER_NULL_ON_FAILURE);
 }
 
 function db(): PDO
@@ -94,15 +106,16 @@ function db(): PDO
     );
 
     try {
-        $pdo = new PDO(
-            $dsn,
-            $db['username'],
-            $db['password'],
-            [
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-            ]
-        );
+        $options = [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        ];
+
+        if ((bool) ($db['ssl'] ?? true) && defined('PDO::MYSQL_ATTR_SSL_CA')) {
+            $options[PDO::MYSQL_ATTR_SSL_CA] = '/etc/ssl/certs/ca-certificates.crt';
+        }
+
+        $pdo = new PDO($dsn, $db['username'], $db['password'], $options);
     } catch (\PDOException $exception) {
         throw new RuntimeException('Database connection failed: ' . $exception->getMessage(), 0, $exception);
     }

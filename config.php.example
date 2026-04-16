@@ -12,5 +12,6 @@ return [
         'username' => 'todo_user',
         'password' => 'change-this-password',
         'charset' => 'utf8mb4',
+        'ssl' => true,
     ],
 ];

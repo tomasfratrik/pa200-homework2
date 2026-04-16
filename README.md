@@ -20,6 +20,7 @@ The app uses:
 ## Project structure
 
 - `index.php` root entrypoint for Azure App Service
+- `startup.sh` and `nginx-default.conf` Azure App Service nginx/PHP startup configuration
 - `public/` application page and static assets
 - `src/` PHP bootstrap and database wiring
 - `sql/schema.sql` database schema
@@ -27,6 +28,7 @@ The app uses:
 - `docs/AZURE_DEPLOYMENT.md` HW2 deployment checklist
 - `docs/STEP1_STORAGE.md` PaaS database setup
 - `docs/STEP2_WEB_APP.md` PaaS web app setup
+- `docs/STEP3_STATIC_ASSETS.md` Blob Storage static asset setup
 
 ## App Service configuration
 
@@ -40,6 +42,7 @@ DB_NAME=todo_app
 DB_USER=<mysql-user>
 DB_PASSWORD=<mysql-password>
 DB_CHARSET=utf8mb4
+DB_SSL=true
 ASSET_BASE_URL=https://<storage-account>.zXX.web.core.windows.net
 ```
 
