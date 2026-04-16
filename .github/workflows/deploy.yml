@@ -36,9 +36,17 @@ jobs:
             --pattern "*.css" \
             --overwrite true
 
+      - name: Build App Service package
+        run: |
+          mkdir app-package
+          cp index.php startup.sh nginx-default.conf app-package/
+          mkdir app-package/public app-package/src
+          cp public/index.php app-package/public/
+          cp src/bootstrap.php app-package/src/
+
       - name: Deploy application to Azure App Service
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
-          package: .
+          package: app-package
