@@ -1,0 +1,6 @@
+config.php
+.env
+dist/
+screenshots/
+docs/
+notes
